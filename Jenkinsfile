@@ -8,22 +8,18 @@ node {
     }
 
     stage('Build in Docker') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-		agent {
-            docker {
-                image 'nginx'
-                args '-v /var/jenkins_home/workspace/helloworld:/usr/share/local/html'
-                reuseNode true
-            }
+       stage('Build image') {
+			/* This builds the actual image; synonymous to
+			* docker build on the command line */
+	
+			app = docker.build("sna/nginx")
 		}
     }
 	
 	stage('Test image') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
-
-        app.inside {
+		app.inside {
             sh 'echo "Tests passed"'
         }
     }
