@@ -8,12 +8,10 @@ node {
     }
 
     stage('Build in Docker') {
-       stage('Build image') {
-			/* This builds the actual image; synonymous to
-			* docker build on the command line */
-	
-			app = docker.build("sna/nginx")
-		}
+		/* This builds the actual image; synonymous to
+		* docker build on the command line */
+		app = docker.build("sna/nginx")
+		
     }
 	
 	stage('Test image') {
